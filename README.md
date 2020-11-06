@@ -19,11 +19,12 @@
   A simple crud for recording and controlling medical treatments.
 </h3>
 
+<a id="ancora"></a>
 <P align="center">
   <a href="#application-features">Features</a> •
-  <a href="#project-technologies">Technologies</a> •
+  <a href="#technologies">Technologies</a> •
   <a href="#about-author">Author</a> •
-  <a href="#memo-license">License</a>
+  <a href="#license">License</a>
 </p>
 
 <div align="center">
@@ -46,7 +47,8 @@
      </kbd>
 </div>
 
-## :application: Features
+<a id="application-features"></a>
+## Features
 
 - [X] Sign-in User
 - [X] Sign-up User
@@ -61,7 +63,8 @@
 - [X] Retrieve Treatments
 - [X] Retrieve Remedy
 
-## 🛠 :project: Technologies
+<a id="technologies"></a>
+## 🛠 Technologies
 
 - [Java 8](https://www.java.com/en/download/help/java8.html)
 - [Jakarta CDI - Weld Servlet 2.4](https://weld.cdi-spec.org/)
@@ -71,7 +74,8 @@
 - [JPA/Hibernate 5.4](http://hibernate.org/)
 - [MySQL 8.0](https://www.mysql.com/)
 
-## :about: Author
+<a id="about-author"></a>
+## Author
 ---
 
 <a href="https://github.com/pedron98">
@@ -84,5 +88,8 @@ Developed by Pedro Augusto 💪🏻💪🏻 contact us!
   <img src="https://img.shields.io/static/v1?label=Pedro-Augusto&message=Linkedin&color=0077B5&style=for-the-badge&logo=linkedin" />
 </a>
 
-## :memo: License
+<a id="license"></a>
+## License
 This project is under the MIT license. See the [LICENSE](https://github.com/pedron98/AgendaTratamento/blob/master/LICENSE.md) for more information.
+
+[Topo](#ancora)
