@@ -22,7 +22,6 @@
 <P align="center">
   <a href="#application-features">Features</a> •
   <a href="#used-technologies">Technologies</a> •
-  <a href="https://github.com/pedron98/AgendaTratamento/blob/master/LICENSE.md">License</a> •
   <a href="#about-author">Author</a> •
   <a href="#memo-license">License</a>
 </p>
