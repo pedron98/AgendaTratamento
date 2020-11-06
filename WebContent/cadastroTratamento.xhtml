@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:composition template="/WEB-INF/templates/_genericTemplate.xhtml">
+		<ui:define name="titulo">Agenda Tratamento</ui:define>
+		
+		<f:metadata>
+			<f:viewParam name="id_usuario" value="#{cadastrarTratamentoBean.usuarioId}" />
+			<f:viewParam name="id_tratamento" value="#{cadastrarTratamentoBean.tratamentoId}" />
+			<f:event listener="#{cadastrarTratamentoBean.pegarUsuarioESalvarTratamento}" type="preRenderView" />
+		</f:metadata>
+		
+		<ui:define name="menu">
+			<div id="menuPrincipal">
+			<nav>
+				<h:form>
+					<p:menubar autoDisplay="false">
+						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml?id_usuario=#{cadastrarTratamentoBean.usuarioId}" />
+						<p:menuitem value="Medicamento" outcome="cadastroMedicamento.xhtml" includeViewParams="true">
+							<f:param name="id_tratamento" value="#{cadastrarTratamentoBean.tratamentoId}" />
+							<f:param name="id_usuario" value="#{cadastrarTratamentoBean.usuarioId}" />
+						</p:menuitem>
+						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+							<span style="padding-left: 4px;">Sair</span>
+						</p:menuitem>
+					</p:menubar>
+				</h:form>
+			</nav>
+		</div>
+		</ui:define>
+		
+		<ui:define name="principal">
+			<p:messages id="messages" closable="true" />
+			<div class="tituloSecao" style="padding: 30px 0px; margin-bottom: 0px;">
+				<span class="fas fa-notes-medical" style="font-size: 40px; color: #00c4cc;" />
+				<h1 style="display: inline; padding-left: 10px;">Cadastrar Tratamento</h1>
+			</div>
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" value="#{cadastrarTratamentoBean.tratamento.nome}"
+						required="true" requiredMessage="É necessário definir um nome para o tratamento!" />
+					
+					<p:outputLabel for="descricao" value="Descrição: " />
+					<p:inputText id="descricao" value="#{cadastrarTratamentoBean.tratamento.descricao}" />
+					
+					<p:outputLabel for="tipo" value="Tipo Tratamento: " />
+					<p:selectOneMenu value="#{cadastrarTratamentoBean.tipoTratamento}" id="tipo"
+						required="true" requiredMessage="É necessário definir uma categoria de tratamento!">
+						
+						<f:ajax listener="#{cadastrarTratamentoBean.pegarTipoTratamento}" event="change" />
+						
+						<f:selectItem itemLabel="Selecione uma categoria" itemValue="" />
+						<f:selectItem itemLabel="Médico" itemValue="MEDICO" />
+						<f:selectItem itemLabel="Cirúrgico" itemValue="CIRURGICO" />
+						<f:selectItem itemLabel="Activo" itemValue="ACTIVO" />
+						<f:selectItem itemLabel="Paleativo" itemValue="PALEATIVO" />
+						<f:selectItem itemLabel="Sintomático" itemValue="SINTOMATICO" />
+						<f:selectItem itemLabel="Alternativo" itemValue="ALTERNATIVO" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="dataInicio" value="Data de Início: " />
+					<p:calendar id="dataInicio" value="#{cadastrarTratamentoBean.tratamento.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</p:calendar>
+					
+					<p:outputLabel for="dataFim" value="Data de término: " />
+					<p:calendar id="dataFim" value="#{cadastrarTratamentoBean.tratamento.dataFim}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					</p:calendar>
+					
+					<p:commandButton value="Novo Tratamento" action="#{cadastrarTratamentoBean.save}"
+						process="@form"
+						update="messages"
+					/>
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>	
+	
+</html>

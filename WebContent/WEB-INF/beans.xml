@@ -1,0 +1,6 @@
+<beans xmlns="xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="xmlns.jcp.org/xml/ns/javaee xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+	version="2.0" bean-discovery-mode="all">
+
+</beans>

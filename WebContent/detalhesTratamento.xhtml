@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="/WEB-INF/templates/_genericTemplate.xhtml">
+	
+	<ui:define name="titulo">Agenda Tratamento</ui:define>
+	
+	<f:metadata>
+		<f:viewParam name="id_tratamento" value="#{detalhesTratamentoBean.tratamentoId}" />
+		<f:event listener="#{detalhesTratamentoBean.pegarTratamentoeMedicamentos}" type="preRenderView" />
+	</f:metadata>
+	
+	<ui:define name="menu">
+		<div id="menuPrincipal">
+			<nav>
+				<h:form>
+					<p:menubar>
+						<p:menuitem value="Dashboard" outcome="dashboardUsuario" includeViewParams="true">
+							<f:param name="id_usuario" value="#{detalhesTratamentoBean.usuarioId}" />
+						</p:menuitem>
+						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+							<span style="padding-left: 4px;">Sair</span>
+						</p:menuitem>
+					</p:menubar>
+				</h:form>
+			</nav>
+		</div>
+	</ui:define>
+	
+	<ui:define name="principal">
+		<div class="tituloSecao" style="padding: 30px 0px; margin-bottom: 0px;">
+			<span class="fa fa-bell" style="font-size: 40px; color: gold;" />
+			<h1 style="display: inline; padding-left: 10px;">Detalhes Tratamento</h1>
+		</div>
+		<p:fieldset>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="nome" value="Nome " />
+				<p:inputText id="nome" value="#{detalhesTratamentoBean.tratamento.nome}" readonly="true"/>
+				
+				<p:outputLabel for="descricao" value="Descrição " />
+				<p:inputTextarea id="descricao" value="#{detalhesTratamentoBean.tratamento.descricao}"
+					readonly="true" rows="3"/>
+				
+				<p:outputLabel for="tipo" value="Tipo Tratamento " />
+				<p:inputText id="tipo" value="#{detalhesTratamentoBean.tratamento.tipoTratamento}" readonly="true"/>
+				
+				<p:outputLabel for="inicio" value="Início " />
+				<p:inputText id="inicio" value="#{detalhesTratamentoBean.tratamento.dataInicio}" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</p:inputText>
+				
+				<p:outputLabel for="fim" value="Fim " />
+				<p:inputText id="fim" value="#{detalhesTratamentoBean.tratamento.dataFim}" readonly="true">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</p:inputText>
+			</h:panelGrid>
+		</p:fieldset>
+		
+		<div class="tituloSecao" style="padding: 30px 0px; margin-bottom: 0px;">
+			<span class="fa fa-heart" style="font-size: 20px; color: red;" />
+			<h2 style="display: inline; padding-left: 10px;">Medicamentos</h2>
+		</div>
+		<h:form>
+			<p:dataTable id="tabelaDeMedicamentos" paginator="true" pageLinks="5" paginatorPosition="bottom" emptyMessage="Nenhum medicamento" value="#{detalhesTratamentoBean.medicamentos}" var="m">
+				<p:column sortBy="#{m.nome}" headerText="Nome">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+				<p:column sortBy="#{m.tipoMedicamento}" headerText="Categoria">
+					<h:outputText value="#{m.tipoMedicamento}" />
+				</p:column>
+				<p:column headerText="Dosagem">
+					<h:outputText value="#{m.dosagem}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-trash" action="#{detalhesTratamentoBean.removerMedicamento(m)}"
+							update="tabelaDeMedicamentos"
+					/>
+	
+					<p:button icon="ui-icon-pencil" outcome="cadastroMedicamento.xhtml" includeViewParams="true">
+						<f:param name="id_medicamento" value="#{m.id}" />
+						<f:param name="id_usuario" value="#{detalhesTratamentoBean.usuarioId}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,35 @@
+/*@font-face {
+	font-family: "Norwester";
+	src: url("#{resource['fonts:norwester.otf']}") format('otf');
+	font-weight: normal;
+	font-style: normal;
+}*/
+
+html, body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Norwester", sans-serif;
+}
+
+header, #principal, #footer {
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+header {
+	background: #1a2d3b;
+	height: 150px;
+	text-indent: 15px;
+}
+
+button {
+	margin-top: 15px;
+}
+
+.tituloSecao {
+	margin-bottom: 30px;
+}
+
+.loader {
+	text-align: center;
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="/WEB-INF/templates/_genericTemplate.xhtml">
+	
+	<ui:define name="titulo">Agenda Tratamento</ui:define>
+	
+	<f:metadata>
+		<f:viewParam name="id_usuario" value="#{perfilUsuarioBean.usuarioId}" />
+		<f:event listener="#{perfilUsuarioBean.pegarUsuario}" type="preRenderView" />
+	</f:metadata>
+	
+	<ui:define name="menu">
+		<div id="menuPrincipal">
+			<nav>
+				<h:form>
+					<p:menubar>
+						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml" includeViewParams="true">
+							<f:param name="id_usuario" value="#{perfilUsuarioBean.usuarioId}" />
+						</p:menuitem>
+						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+							<span style="padding-left: 4px;">Sair</span>
+						</p:menuitem>
+					</p:menubar>
+				</h:form>
+			</nav>
+		</div>
+	</ui:define>
+	
+	<ui:define name="principal">
+		<p:messages id="messages" closable="true" />
+		<div class="tituloSecao" style="padding: 20px 0px; margin-bottom: 0px;">
+			<span class="fas fa-user-circle" style="padding: 5px 0px; font-size: 40px; color: #00c4cc;" />
+			<h1 style="display: inline; padding-left: 10px;">Seu Perfil</h1>
+			<p>Veja os detalhes da sua conta..</p>
+		</div>
+		<h:form>
+			<p:fieldset>
+				
+				<h:panelGrid columns="2">
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" value="#{perfilUsuarioBean.usuario.nome}" />
+					
+					<p:outputLabel for="user" value="Username: " />
+					<p:inputText id="user" value="#{perfilUsuarioBean.usuario.username}" />
+					
+					<p:outputLabel for="email" value="E-mail: " />
+					<p:inputText id="email" value="#{perfilUsuarioBean.usuario.email}" />
+					
+					<p:outputLabel for="senha" value="Senha: " />
+					<p:inputText id="senha" value="#{perfilUsuarioBean.usuario.senha}" />
+				</h:panelGrid>
+				
+				<p:commandButton icon="ui-icon-pencil" action="#{perfilUsuarioBean.alterar}" update="messages" />
+				
+				<!-- Confirm Dialog (non-global) -->
+				<p:commandButton type="button" onclick="PF('cd').show()"
+					icon="ui-icon-trash" value="Excluir Conta" />
+				
+				<p:confirmDialog widgetVar="cd" severity="alert"
+					header="Confirmação"
+					message="Tem certeza que deseja excluir sua conta?"
+					showEffect="fade" hideEffect="fade">
+					
+					<p:commandButton value="Confirmar" action="#{perfilUsuarioBean.remover}" oncomplete="PF('CD')" />
+					<p:commandButton value="Voltar" onclick="PF('cd').hide()" type="button" />
+				</p:confirmDialog>
+				
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>
