@@ -21,7 +21,7 @@
 
 <P align="center">
   <a href="#application-features">Features</a> •
-  <a href="#used-technologies">Technologies</a> •
+  <a href="#project-technologies">Technologies</a> •
   <a href="#about-author">Author</a> •
   <a href="#memo-license">License</a>
 </p>
@@ -46,7 +46,7 @@
      </kbd>
 </div>
 
-### :application: Features
+## :application: Features
 
 - [X] Sign-in User
 - [X] Sign-up User
@@ -61,7 +61,7 @@
 - [X] Retrieve Treatments
 - [X] Retrieve Remedy
 
-## 🛠 :used: Technologies
+## 🛠 :project: Technologies
 
 - [Java 8](https://www.java.com/en/download/help/java8.html)
 - [Jakarta CDI - Weld Servlet 2.4](https://weld.cdi-spec.org/)
@@ -71,7 +71,7 @@
 - [JPA/Hibernate 5.4](http://hibernate.org/)
 - [MySQL 8.0](https://www.mysql.com/)
 
-### :about: Author
+## :about: Author
 ---
 
 <a href="https://github.com/pedron98">
