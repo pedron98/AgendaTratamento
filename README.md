@@ -20,10 +20,11 @@
 </h3>
 
 <P align="center">
-  <a href="#sobre">About</a> •
-  <a href="#sobre">Technologies used</a> •
-  <a href="#sobre">License</a> •
-  <a href="#autor">Author</a> •
+  <a href="#application-features">Features</a> •
+  <a href="#used-technologies">Technologies</a> •
+  <a href="https://github.com/pedron98/AgendaTratamento/blob/master/LICENSE.md">License</a> •
+  <a href="#about-author">Author</a> •
+  <a href="#memo-license">License</a>
 </p>
 
 <div align="center">
@@ -46,7 +47,7 @@
      </kbd>
 </div>
 
-### Features
+### :application: Features
 
 - [X] Sign-in User
 - [X] Sign-up User
@@ -61,7 +62,7 @@
 - [X] Retrieve Treatments
 - [X] Retrieve Remedy
 
-## 🛠 Tecnologias Utilizadas
+## 🛠 :used: Technologies
 
 - [Java 8](https://www.java.com/en/download/help/java8.html)
 - [Jakarta CDI - Weld Servlet 2.4](https://weld.cdi-spec.org/)
@@ -71,15 +72,18 @@
 - [JPA/Hibernate 5.4](http://hibernate.org/)
 - [MySQL 8.0](https://www.mysql.com/)
 
-### Author
+### :about: Author
 ---
 
 <a href="https://github.com/pedron98">
  <img style="border-radius: 50%;" src="https://avatars0.githubusercontent.com/u/30763268?s=460&u=5ae764c71fb6c57e8c6252faea2dba371b20af9f&v=4" width="100px" />
 </a>
 
-Desenvolvido por Pedro Augusto 💪🏻💪🏻 Entre em contato!
+Developed by Pedro Augusto 💪🏻💪🏻 contact us!
 
 <a href="https://www.linkedin.com/in/pedro-augusto-a00076173/">
   <img src="https://img.shields.io/static/v1?label=Pedro-Augusto&message=Linkedin&color=0077B5&style=for-the-badge&logo=linkedin" />
-</a> 
+</a>
+
+## :memo: License
+This project is under the MIT license. See the [LICENSE](https://github.com/pedron98/AgendaTratamento/blob/master/LICENSE.md) for more information.
