@@ -1,6 +1,10 @@
 package com.github.pedron98.bean;
 
 import java.io.Serializable;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -29,6 +33,7 @@ public class CadastrarMedicamentoBean implements Serializable {
 	private String tipoMedicamento;
 	
 	private int medicamentoId;
+	private String horarioMedicamento;
 
 	public void pegarTipoMedicamento() {
 		TipoMedicamento tipo = null;
@@ -76,7 +81,14 @@ public class CadastrarMedicamentoBean implements Serializable {
 			tratamento = tratamentoDAO.findById(new Long(tratamentoId));
 			medicamento.setTratamento(tratamento);
 		}
-	} 
+	}
+	
+	public void parseHorarioToLocalTime() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		TemporalAccessor parse = formatter.parse(horarioMedicamento);
+		LocalTime from = LocalTime.from(parse);
+		medicamento.setHorario(from);
+	}
 	
 	@PostConstruct
 	public void init() {
@@ -132,6 +144,14 @@ public class CadastrarMedicamentoBean implements Serializable {
 
 	public void setMedicamentoId(int medicamentoId) {
 		this.medicamentoId = medicamentoId;
+	} 
+
+	public String getHorarioMedicamento() {
+		return horarioMedicamento;
+	} 
+
+	public void setHorarioMedicamento(String horarioMedicamento) {
+		this.horarioMedicamento = horarioMedicamento;
 	}
 
 	public String save() {
