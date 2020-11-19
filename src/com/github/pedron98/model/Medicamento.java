@@ -1,6 +1,7 @@
 package com.github.pedron98.model;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +36,9 @@ public class Medicamento implements Serializable {
 	@Column(length = 250)
 	private String dosagem;
 	
+	@Column(name="horario_medicamento")
+	private LocalTime horario;
+	
 	@ManyToOne
 	@JoinColumn(name="tratamento_id")
 	private Tratamento tratamento;
@@ -43,6 +47,10 @@ public class Medicamento implements Serializable {
 		
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -65,10 +73,14 @@ public class Medicamento implements Serializable {
 
 	public void setDosagem(String dosagem) {
 		this.dosagem = dosagem;
+	} 
+	
+	public LocalTime getHorario() {
+		return horario;
 	}
 
-	public Long getId() {
-		return id;
+	public void setHorario(LocalTime horario) {
+		this.horario = horario;
 	}
 
 	public Tratamento getTratamento() {
