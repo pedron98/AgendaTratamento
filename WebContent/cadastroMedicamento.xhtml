@@ -70,6 +70,11 @@
 						<f:selectItem itemLabel="Manipulado" itemValue="MANIPULADO" />
 					</p:selectOneMenu>
 					
+					<p:outputLabel for="horario" value="Horário: " />
+					<p:inputMask id="horario" mask="99:99" value="#{cadastrarMedicamentoBean.horarioMedicamento}">
+						<p:ajax listener="#{cadastrarMedicamentoBean.parseHorarioToLocalTime}" event="blur" />
+					</p:inputMask>
+					
 					<p:commandButton value="Novo Medicamento" action="#{cadastrarMedicamentoBean.save}"
 						process="@form"
 						update="messages formMedicamento"
