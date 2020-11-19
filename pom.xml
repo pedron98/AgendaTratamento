@@ -21,8 +21,8 @@
 
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>2.4.8.Final</version>
+			<artifactId>weld-servlet-core</artifactId>
+			<version>3.1.5.SP1</version>
 		</dependency>
 
 		<dependency>
@@ -40,13 +40,13 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.21.Final</version>
+			<version>5.4.24.Final</version>
 		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.21</version>
+			<version>8.0.22</version>
 		</dependency>
 	</dependencies>
 	<build>
