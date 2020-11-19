@@ -58,7 +58,7 @@
 					<p:selectOneMenu value="#{cadastrarMedicamentoBean.tipoMedicamento}" id="tipo"
 						required="true" requiredMessage="É necessário selecionar uma categoria de medicamento!">
 						
-						<f:ajax listener="#{cadastrarMedicamentoBean.pegarTipoMedicamento}" event="change" />
+						<p:ajax listener="#{cadastrarMedicamentoBean.pegarTipoMedicamento}" event="change" />
 						
 						<f:selectItem itemLabel="Selecione uma categoria" itemValue="" />
 						<f:selectItem itemLabel="Fitoterapico" itemValue="FITOTERAPICO" />

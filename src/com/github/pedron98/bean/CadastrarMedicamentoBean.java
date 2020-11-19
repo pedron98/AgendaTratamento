@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
-import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -28,11 +28,11 @@ public class CadastrarMedicamentoBean implements Serializable {
 	private MedicamentoDAO medicamentoDAO;
 	private Tratamento tratamento;
 	private TratamentoDAO tratamentoDAO;
-	private int tratamentoId;
+	private Long tratamentoId;
 	private Long usuarioId;
 	private String tipoMedicamento;
 	
-	private int medicamentoId;
+	private Long medicamentoId;
 	private String horarioMedicamento;
 
 	public void pegarTipoMedicamento() {
@@ -73,12 +73,12 @@ public class CadastrarMedicamentoBean implements Serializable {
 		medicamento.setTipoMedicamento(tipo);
 	}
 	
-	public void pegarTratamentoEVerificarMedicamento() {			
+	public void pegarTratamentoEVerificarMedicamento(ComponentSystemEvent e) {			
 		if (medicamentoId != 0) {
-			medicamento = medicamentoDAO.findById(new Long(medicamentoId));
+			medicamento = medicamentoDAO.findById(medicamentoId);
 		}
 		else {
-			tratamento = tratamentoDAO.findById(new Long(tratamentoId));
+			tratamento = tratamentoDAO.findById(tratamentoId);
 			medicamento.setTratamento(tratamento);
 		}
 	}
@@ -114,11 +114,11 @@ public class CadastrarMedicamentoBean implements Serializable {
 		this.tipoMedicamento = tipoMedicamento;
 	} 
 
-	public int getTratamentoId() {
+	public Long getTratamentoId() {
 		return tratamentoId;
 	}
 
-	public void setTratamentoId(int tratamentoId) {
+	public void setTratamentoId(Long tratamentoId) {
 		this.tratamentoId = tratamentoId;
 	} 
 
@@ -138,11 +138,11 @@ public class CadastrarMedicamentoBean implements Serializable {
 		this.tratamento = tratamento;
 	} 
 
-	public int getMedicamentoId() {
+	public Long getMedicamentoId() {
 		return medicamentoId;
 	}
 
-	public void setMedicamentoId(int medicamentoId) {
+	public void setMedicamentoId(Long medicamentoId) {
 		this.medicamentoId = medicamentoId;
 	} 
 
