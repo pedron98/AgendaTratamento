@@ -66,13 +66,14 @@
 <a id="technologies"></a>
 ## 🛠 Technologies
 
-- [Java 8](https://www.java.com/en/download/help/java8.html)
-- [Jakarta CDI - Weld Servlet 2.4](https://weld.cdi-spec.org/)
-- [JSF 2.2 - Oracle Mojarra](https://javaserverfaces.github.io/)
+- [Java SE 8](https://www.java.com/en/download/help/java8.html)
+- [Jakarta CDI - Weld Servlet 3.5.1.SP1](https://weld.cdi-spec.org/)
+- [JSF - Oracle Mojarra 2.2.20](https://javaserverfaces.github.io/)
 - [Primefaces 7.0](https://www.primefaces.org/)
 - [Fontawesome 5.12](https://fontawesome.com/)
-- [JPA/Hibernate 5.4](http://hibernate.org/)
-- [MySQL 8.0](https://www.mysql.com/)
+- [JPA - Hibernate 5.4.24.Final](http://hibernate.org/)
+- [MySQL Community Server 8.0.22](https://www.mysql.com/)
+- [Apache Tomcat 9.0.40](https://tomcat.apache.org/)
 
 <a id="about-author"></a>
 ## Author
