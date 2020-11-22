@@ -74,6 +74,7 @@
 - [JPA - Hibernate 5.4.24.Final](http://hibernate.org/)
 - [MySQL Community Server 8.0.22](https://www.mysql.com/)
 - [Apache Tomcat 9.0.40](https://tomcat.apache.org/)
+- [Apache Maven 3.x](http://maven.apache.org/)
 
 <a id="about-author"></a>
 ## Author
