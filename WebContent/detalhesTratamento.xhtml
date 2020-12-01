@@ -67,7 +67,10 @@
 			<h2 style="display: inline; padding-left: 10px;">Medicamentos</h2>
 		</div>
 		<h:form>
-			<p:dataTable id="tabelaDeMedicamentos" paginator="true" pageLinks="5" paginatorPosition="bottom" emptyMessage="Nenhum medicamento" value="#{detalhesTratamentoBean.medicamentos}" var="m">
+			<p:dataTable id="tabelaDeMedicamentos" var="m" value="#{detalhesTratamentoBean.medicamentos}" 
+				paginator="true" rows="5" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom" emptyMessage="Nenhum medicamento">
+				
 				<p:column sortBy="#{m.nome}" headerText="Nome">
 					<h:outputText value="#{m.nome}" />
 				</p:column>
@@ -76,6 +79,9 @@
 				</p:column>
 				<p:column headerText="Dosagem">
 					<h:outputText value="#{m.dosagem}" />
+				</p:column>
+				<p:column headerText="Horário">
+					<h:outputText value="#{m.horario}" />
 				</p:column>
 				<p:column>
 					<p:commandButton icon="ui-icon-trash" action="#{detalhesTratamentoBean.removerMedicamento(m)}"
