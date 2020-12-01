@@ -53,7 +53,7 @@
 					<p:selectOneMenu value="#{cadastrarTratamentoBean.tipoTratamento}" id="tipo"
 						required="true" requiredMessage="É necessário definir uma categoria de tratamento!">
 						
-						<f:ajax listener="#{cadastrarTratamentoBean.pegarTipoTratamento}" event="change" />
+						<p:ajax listener="#{cadastrarTratamentoBean.pegarTipoTratamento}" event="change" />
 						
 						<f:selectItem itemLabel="Selecione uma categoria" itemValue="" />
 						<f:selectItem itemLabel="Médico" itemValue="MEDICO" />

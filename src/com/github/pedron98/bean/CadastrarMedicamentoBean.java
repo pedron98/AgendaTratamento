@@ -8,7 +8,6 @@ import java.time.temporal.TemporalAccessor;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -73,8 +72,8 @@ public class CadastrarMedicamentoBean implements Serializable {
 		medicamento.setTipoMedicamento(tipo);
 	}
 	
-	public void pegarTratamentoEVerificarMedicamento(ComponentSystemEvent e) {			
-		if (medicamentoId != 0) {
+	public void pegarTratamentoEVerificarMedicamento() {
+		if (medicamentoId != null) {
 			medicamento = medicamentoDAO.findById(medicamentoId);
 		}
 		else {
@@ -155,14 +154,14 @@ public class CadastrarMedicamentoBean implements Serializable {
 	}
 
 	public String save() {
-		if (medicamentoId != 0) {
+		if (medicamentoId != null) {
 			medicamentoDAO.update(medicamento);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Medicamento atualizado com sucesso!", ""));
 			return null;
 		}
 		else {
-			if (tratamentoId == 0) {
+			if (tratamentoId == null) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_WARN, "É necessário ter um tratamento cadastrado para este medicamento!", ""));
 				return null;
