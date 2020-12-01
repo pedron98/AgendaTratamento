@@ -18,15 +18,16 @@ public class DetalhesTratamentoBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private List<Medicamento> medicamentos;
 	private MedicamentoDAO medicamentoDAO;
 	private TratamentoDAO tratamentoDAO;
 	private Tratamento tratamento;
 	private Long usuarioId;
-	private int tratamentoId;
+	private Long tratamentoId;
+	
+	private List<Medicamento> medicamentos;
 	
 	public void pegarTratamentoeMedicamentos() {
-		tratamento = tratamentoDAO.findTratamentoFetchMedicamentos(new Long(tratamentoId));
+		tratamento = tratamentoDAO.findTratamentoFetchMedicamentos(tratamentoId);
 		medicamentos = tratamento.getMedicamentos();
 		usuarioId = tratamento.getUsuario().getId();
 	}
@@ -43,11 +44,11 @@ public class DetalhesTratamentoBean implements Serializable {
 		medicamentoDAO = new MedicamentoDAO();
 	}
 
-	public int getTratamentoId() {
+	public Long getTratamentoId() {
 		return tratamentoId;
 	}
 
-	public void setTratamentoId(int tratamentoId) {
+	public void setTratamentoId(Long tratamentoId) {
 		this.tratamentoId = tratamentoId;
 	} 
 

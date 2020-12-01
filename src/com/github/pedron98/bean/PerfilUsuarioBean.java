@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.UsuarioDAO;
+import com.github.pedron98.exception.SessionException;
 import com.github.pedron98.model.Usuario;
 
 @Named
@@ -18,11 +19,6 @@ public class PerfilUsuarioBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private UsuarioDAO usuarioDAO;
-	private int usuarioId;
-	
-	public void pegarUsuario() {
-		usuario = usuarioDAO.findById(new Long(usuarioId));
-	}
 	
 	public void alterar() {
 		usuarioDAO.update(usuario);
@@ -37,16 +33,18 @@ public class PerfilUsuarioBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		usuario = new Usuario();
 		usuarioDAO = new UsuarioDAO();
-	}
-
-	public int getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(int usuarioId) {
-		this.usuarioId = usuarioId;
+		usuario = new Usuario();
+		
+		Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().get("usuario");
+		
+		if (u == null) {
+			throw new SessionException("Erro ao tentar buscar o usuário da sessão! Faça o login novamente.");
+		}
+		else {
+			usuario = usuarioDAO.findUsuarioFetchTratamentos(u.getId());
+		}
 	}
 
 	public Usuario getUsuario() {

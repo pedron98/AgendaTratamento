@@ -11,20 +11,13 @@
 	
 	<ui:define name="titulo">Agenda Tratamento</ui:define>
 	
-	<f:metadata>
-		<f:viewParam name="id_usuario" value="#{perfilUsuarioBean.usuarioId}" />
-		<f:event listener="#{perfilUsuarioBean.pegarUsuario}" type="preRenderView" />
-	</f:metadata>
-	
 	<ui:define name="menu">
 		<div id="menuPrincipal">
 			<nav>
 				<h:form>
 					<p:menubar>
-						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml" includeViewParams="true">
-							<f:param name="id_usuario" value="#{perfilUsuarioBean.usuarioId}" />
-						</p:menuitem>
-						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml" />
+						<p:menuitem icon="fas fa-sign-out-alt" action="#{logoutUsuarioBean.logout}">
 							<span style="padding-left: 4px;">Sair</span>
 						</p:menuitem>
 					</p:menubar>

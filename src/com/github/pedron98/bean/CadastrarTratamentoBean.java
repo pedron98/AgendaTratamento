@@ -9,7 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.TratamentoDAO;
-import com.github.pedron98.dao.UsuarioDAO;
 import com.github.pedron98.enums.TipoTratamento;
 import com.github.pedron98.model.Tratamento;
 import com.github.pedron98.model.Usuario;
@@ -22,18 +21,21 @@ public class CadastrarTratamentoBean implements Serializable {
 
 	private Tratamento tratamento;
 	private TratamentoDAO tratamentoDAO;
-	private Usuario usuario;
-	private UsuarioDAO usuarioDAO;
 	private String tipoTratamento;
-	private int usuarioId;
-	private int tratamentoId;
-
-	public void pegarUsuarioESalvarTratamento() {
-		usuario = usuarioDAO.findById(new Long(usuarioId));
-		if (tratamentoId != 0) {			
-			tratamento = tratamentoDAO.findById(new Long(tratamentoId));
+	private Long tratamentoId;
+	
+	public void pegarTratamento() {
+		if (tratamentoId != null) {			
+			tratamento = tratamentoDAO.findById(tratamentoId);
 		}
-		tratamento.setUsuario(usuario);
+		else {
+			Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext()
+					.getSessionMap().get("usuario");
+			
+			if (u != null) {				
+				tratamento.setUsuario(u);
+			}	
+		}
 	}
 
 	public void pegarTipoTratamento() {
@@ -69,8 +71,6 @@ public class CadastrarTratamentoBean implements Serializable {
 	public void init() {
 		tratamento = new Tratamento();
 		tratamentoDAO = new TratamentoDAO();
-		usuario = new Usuario();
-		usuarioDAO = new UsuarioDAO();
 	}
 
 	public Tratamento getTratamento() {
@@ -89,36 +89,25 @@ public class CadastrarTratamentoBean implements Serializable {
 		this.tipoTratamento = tipoTratamento;
 	}
 
-	public int getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(int usuarioId) {
-		this.usuarioId = usuarioId;
-	}
-
-	public int getTratamentoId() {
+	public Long getTratamentoId() {
 		return tratamentoId;
 	}
 
-	public void setTratamentoId(int tratamentoId) {
+	public void setTratamentoId(Long tratamentoId) {
 		this.tratamentoId = tratamentoId;
 	}
 
 	public String save() {
-		if (tratamentoId != 0) {			
+		if (tratamentoId != null) {
 			tratamentoDAO.update(tratamento);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Tratamento atualizado com sucesso!", ""));
-			return null;
-		}
-		else {
+		} else {
 			tratamentoDAO.save(tratamento);
-			return "dashboardUsuario?faces-redirect=true"+"id_usuario="+usuarioId;
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Tratamento cadastrado com sucesso!", ""));
+			return "dashboardUsuario.xhtml?faces-redirect=true";
 		}
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
+		return null;
 	}
 }

@@ -10,9 +10,8 @@
 		<ui:define name="titulo">Agenda Tratamento</ui:define>
 		
 		<f:metadata>
-			<f:viewParam name="id_usuario" value="#{cadastrarTratamentoBean.usuarioId}" />
 			<f:viewParam name="id_tratamento" value="#{cadastrarTratamentoBean.tratamentoId}" />
-			<f:event listener="#{cadastrarTratamentoBean.pegarUsuarioESalvarTratamento}" type="preRenderView" />
+			<f:event listener="#{cadastrarTratamentoBean.pegarTratamento}" type="preRenderView" />
 		</f:metadata>
 		
 		<ui:define name="menu">
@@ -20,12 +19,11 @@
 			<nav>
 				<h:form>
 					<p:menubar autoDisplay="false">
-						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml?id_usuario=#{cadastrarTratamentoBean.usuarioId}" />
+						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml" />
 						<p:menuitem value="Medicamento" outcome="cadastroMedicamento.xhtml" includeViewParams="true">
 							<f:param name="id_tratamento" value="#{cadastrarTratamentoBean.tratamentoId}" />
-							<f:param name="id_usuario" value="#{cadastrarTratamentoBean.usuarioId}" />
 						</p:menuitem>
-						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+						<p:menuitem icon="fas fa-sign-out-alt" action="#{logoutUsuarioBean.logout}">
 							<span style="padding-left: 4px;">Sair</span>
 						</p:menuitem>
 					</p:menubar>

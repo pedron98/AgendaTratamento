@@ -11,23 +11,14 @@
 	
 	<ui:define name="titulo">Agenda Tratamento</ui:define>
 	
-	<f:metadata>
-		<f:viewParam name="id_usuario" value="#{dashboardUsuarioBean.usuarioId}" />
-		<f:event listener="#{dashboardUsuarioBean.pegarUsuarioeTratamentos}" type="preRenderView" />
-	</f:metadata>
-	
 	<ui:define name="menu">
 		<div id="menuPrincipal">
 			<nav>
 				<h:form>
 					<p:menubar autoDisplay="false">
-						<p:menuitem value="Perfil" outcome="perfilUsuario.xhtml" includeViewParams="true">
-							<f:param name="id_usuario" value="#{dashboardUsuarioBean.usuarioId}" />
-						</p:menuitem>
-						<p:menuitem value="Novo Tratamento" outcome="cadastroTratamento.xhtml" includeViewParams="true">
-							<f:param name="id_usuario" value="#{dashboardUsuarioBean.usuarioId}" />
-						</p:menuitem>
-						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+						<p:menuitem value="Perfil" outcome="perfilUsuario.xhtml" />
+						<p:menuitem value="Novo Tratamento" outcome="cadastroTratamento.xhtml" />
+						<p:menuitem icon="fas fa-sign-out-alt" action="#{logoutUsuarioBean.logout}">
 							<span style="padding-left: 4px;">Sair</span>
 						</p:menuitem>
 					</p:menubar>
@@ -42,7 +33,10 @@
 			<h1 style="display: inline; padding-left: 10px;">Seus Tratamentos</h1>
 		</div>
 		<h:form>
-			<p:dataTable paginator="true" paginatorPosition="bottom" pageLinks="5" emptyMessage="Nenhum tratamento" id="tabelaDeTratamentos" value="#{dashboardUsuarioBean.tratamentos}" var="t">
+			<p:dataTable id="tabelaDeTratamentos" var="t" value="#{dashboardUsuarioBean.tratamentos}"
+				rows="5" paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom" emptyMessage="Nenhum tratamento">
+				
 				<p:column sortBy="#{t.nome}" headerText="Nome" >
 					<h:outputText value="#{t.nome}" />
 					<p:link style="padding-left: 8px; text-decoration: none;" class="fas fa-ellipsis-h" outcome="detalhesTratamento.xhtml" includeViewParams="true">
@@ -64,12 +58,11 @@
 				</p:column>
 				<p:column>
 					<p:commandButton icon="ui-icon-trash" action="#{dashboardUsuarioBean.remover(t)}"
-						process="@all"
+						process="@form"
 						update="tabelaDeTratamentos"
 					/>
 
 					<p:button icon="ui-icon-pencil" outcome="cadastroTratamento.xhtml" includeViewParams="true">
-						<f:param name="id_usuario" value="#{dashboardUsuarioBean.usuarioId}" />
 						<f:param name="id_tratamento" value="#{t.id}" />
 					</p:button>
 				</p:column>

@@ -60,5 +60,4 @@ public class MedicamentoDAO implements MedicamentoDAOIF, Serializable {
 		em.close();
 		return m;
 	}
-	
 }

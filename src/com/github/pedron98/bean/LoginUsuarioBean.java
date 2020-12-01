@@ -43,7 +43,8 @@ public class LoginUsuarioBean implements Serializable {
 	public String login() {
 		try {
 			usuario = usuarioService.findUsuarioByEmail(emailUsuario);
-			return "dashboardUsuario?faces-redirect=true"+"id_usuario="+usuario.getId();
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+			return "dashboardUsuario?faces-redirect=true";
 		}
 		catch(ServiceException ex) {
 			FacesContext.getCurrentInstance().addMessage(null,

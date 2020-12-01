@@ -24,7 +24,7 @@
 						<p:menuitem value="Dashboard" outcome="dashboardUsuario" includeViewParams="true">
 							<f:param name="id_usuario" value="#{detalhesTratamentoBean.usuarioId}" />
 						</p:menuitem>
-						<p:menuitem icon="fas fa-sign-out-alt" outcome="index.xhtml">
+						<p:menuitem icon="fas fa-sign-out-alt" action="#{logoutUsuarioBean.logout}">
 							<span style="padding-left: 4px;">Sair</span>
 						</p:menuitem>
 					</p:menubar>
@@ -90,7 +90,6 @@
 	
 					<p:button icon="ui-icon-pencil" outcome="cadastroMedicamento.xhtml" includeViewParams="true">
 						<f:param name="id_medicamento" value="#{m.id}" />
-						<f:param name="id_usuario" value="#{detalhesTratamentoBean.usuarioId}" />
 					</p:button>
 				</p:column>
 			</p:dataTable>

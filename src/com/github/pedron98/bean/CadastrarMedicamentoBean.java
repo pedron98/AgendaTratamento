@@ -72,7 +72,7 @@ public class CadastrarMedicamentoBean implements Serializable {
 		medicamento.setTipoMedicamento(tipo);
 	}
 	
-	public void pegarTratamentoEVerificarMedicamento() {
+	public void pegarTratamento() {
 		if (medicamentoId != null) {
 			medicamento = medicamentoDAO.findById(medicamentoId);
 		}
