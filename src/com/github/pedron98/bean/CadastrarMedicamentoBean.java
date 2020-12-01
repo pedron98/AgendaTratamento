@@ -5,10 +5,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.MedicamentoDAO;
@@ -22,11 +22,16 @@ import com.github.pedron98.model.Tratamento;
 public class CadastrarMedicamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@Inject
 	private Medicamento medicamento;
+	@Inject
 	private MedicamentoDAO medicamentoDAO;
+	@Inject
 	private Tratamento tratamento;
+	@Inject
 	private TratamentoDAO tratamentoDAO;
+	
 	private Long tratamentoId;
 	private Long usuarioId;
 	private String tipoMedicamento;
@@ -87,14 +92,6 @@ public class CadastrarMedicamentoBean implements Serializable {
 		TemporalAccessor parse = formatter.parse(horarioMedicamento);
 		LocalTime from = LocalTime.from(parse);
 		medicamento.setHorario(from);
-	}
-	
-	@PostConstruct
-	public void init() {
-		medicamento = new Medicamento();
-		medicamentoDAO = new MedicamentoDAO();
-		tratamentoDAO = new TratamentoDAO();
-		tratamento = new Tratamento();
 	}
 
 	public Medicamento getMedicamento() {

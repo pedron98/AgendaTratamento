@@ -2,10 +2,10 @@ package com.github.pedron98.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.TratamentoDAO;
@@ -18,9 +18,13 @@ import com.github.pedron98.model.Usuario;
 public class CadastrarTratamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@Inject
 	private Tratamento tratamento;
+	
+	@Inject
 	private TratamentoDAO tratamentoDAO;
+	
 	private String tipoTratamento;
 	private Long tratamentoId;
 	
@@ -63,14 +67,7 @@ public class CadastrarTratamentoBean implements Serializable {
 				}
 			}
 		}
-		System.out.println(tipo);
 		tratamento.setTipoTratamento(tipo);
-	}
-
-	@PostConstruct
-	public void init() {
-		tratamento = new Tratamento();
-		tratamentoDAO = new TratamentoDAO();
 	}
 
 	public Tratamento getTratamento() {

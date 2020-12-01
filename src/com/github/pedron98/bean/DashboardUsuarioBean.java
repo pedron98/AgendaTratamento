@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.TratamentoDAO;
@@ -19,9 +20,12 @@ import com.github.pedron98.model.Usuario;
 public class DashboardUsuarioBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	@Inject
 	private TratamentoDAO tratamentoDAO;
+	@Inject
 	private UsuarioDAO usuarioDAO;
+	@Inject
 	private Usuario usuario;
 	
 	private List<Tratamento> tratamentos;
@@ -33,8 +37,6 @@ public class DashboardUsuarioBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		
-		usuarioDAO = new UsuarioDAO();
 					
 		Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().get("usuario");
@@ -46,8 +48,6 @@ public class DashboardUsuarioBean implements Serializable {
 			usuario = usuarioDAO.findUsuarioFetchTratamentos(u.getId());
 			tratamentos = usuario.getTratamentos();
 		}
-		
-		tratamentoDAO = new TratamentoDAO();
 	}
 
 	public Usuario getUsuario() {

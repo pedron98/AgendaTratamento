@@ -2,6 +2,8 @@ package com.github.pedron98.service;
 
 import java.io.Serializable;
 
+import javax.inject.Inject;
+
 import com.github.pedron98.dao.UsuarioDAO;
 import com.github.pedron98.exception.ServiceException;
 import com.github.pedron98.model.Usuario;
@@ -9,11 +11,9 @@ import com.github.pedron98.model.Usuario;
 public class UsuarioService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private UsuarioDAO usuarioDAO;
 	
-	public UsuarioService() {
-		usuarioDAO = new UsuarioDAO();
-	}
+	@Inject
+	private UsuarioDAO usuarioDAO;
 	
 	public void save(Usuario u) throws ServiceException {
 		if (u.getNome().length() < 10) {

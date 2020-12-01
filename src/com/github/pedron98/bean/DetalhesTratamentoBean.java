@@ -3,8 +3,8 @@ package com.github.pedron98.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.MedicamentoDAO;
@@ -18,9 +18,13 @@ public class DetalhesTratamentoBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
 	private MedicamentoDAO medicamentoDAO;
+	@Inject
 	private TratamentoDAO tratamentoDAO;
+	@Inject
 	private Tratamento tratamento;
+	
 	private Long usuarioId;
 	private Long tratamentoId;
 	
@@ -35,13 +39,6 @@ public class DetalhesTratamentoBean implements Serializable {
 	public void removerMedicamento(Medicamento m) {
 		medicamentos.remove(m);
 		medicamentoDAO.remove(m);
-	}
-	
-	@PostConstruct
-	public void init() {
-		tratamentoDAO = new TratamentoDAO();
-		tratamento = new Tratamento();
-		medicamentoDAO = new MedicamentoDAO();
 	}
 
 	public Long getTratamentoId() {

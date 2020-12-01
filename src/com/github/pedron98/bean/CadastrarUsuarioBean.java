@@ -2,10 +2,10 @@ package com.github.pedron98.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.exception.ServiceException;
@@ -18,14 +18,11 @@ public class CadastrarUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
 	private Usuario usuario;
-	private UsuarioService usuarioService;
 	
-	@PostConstruct
-	public void init() {
-		usuario = new Usuario();
-		usuarioService = new UsuarioService();
-	}
+	@Inject
+	private UsuarioService usuarioService;
 
 	public Usuario getUsuario() {
 		return usuario;

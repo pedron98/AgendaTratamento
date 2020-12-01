@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.github.pedron98.dao.UsuarioDAO;
@@ -17,7 +18,10 @@ import com.github.pedron98.model.Usuario;
 public class PerfilUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
 	private Usuario usuario;
+	@Inject
 	private UsuarioDAO usuarioDAO;
 	
 	public void alterar() {
@@ -33,8 +37,6 @@ public class PerfilUsuarioBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		usuarioDAO = new UsuarioDAO();
-		usuario = new Usuario();
 		
 		Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().get("usuario");
