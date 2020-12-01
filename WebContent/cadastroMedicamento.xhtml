@@ -22,9 +22,7 @@
 					<p:menubar>
 						<p:menuitem value="Dashboard" outcome="dashboardUsuario.xhtml}" />
 						
-						<p:menuitem value="Tratamento" outcome="cadastroTratamento.xhtml" includeViewParams="true">
-							<f:param name="id_tratamento" value="#{cadastrarMedicamentoBean.tratamentoId}" />
-						</p:menuitem>
+						<p:menuitem value="Tratamento" outcome="cadastroTratamento.xhtml" />
 						<p:menuitem icon="fas fa-sign-out-alt" action="#{logoutUsuarioBean.logout}">
 							<span style="padding-left: 4px;">Sair</span>
 						</p:menuitem>

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.github.pedron98.annotation.Transacional;
 import com.github.pedron98.model.Medicamento;
 
 public class MedicamentoDAO implements MedicamentoDAOIF, Serializable {
@@ -18,25 +19,22 @@ public class MedicamentoDAO implements MedicamentoDAOIF, Serializable {
 	private EntityManager em;
 	
 	@Override
+	@Transacional
 	public void save(Medicamento medicamento) {
-		em.getTransaction().begin();
 		em.persist(medicamento);
-		em.getTransaction().commit();
 	}
 	
 	@Override
+	@Transacional
 	public void update(Medicamento medicamento) {
-		em.getTransaction().begin();
 		em.merge(medicamento);
-		em.getTransaction().commit();
 	}
 	
 	@Override
+	@Transacional
 	public void remove(Medicamento medicamento) {
 		Medicamento m = em.find(Medicamento.class, medicamento.getId());
-		em.getTransaction().begin();
 		em.remove(m);
-		em.getTransaction().commit();
 	}
 	
 	@Override

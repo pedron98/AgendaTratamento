@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.github.pedron98.annotation.Transacional;
 import com.github.pedron98.model.Usuario;
 
 public class UsuarioDAO implements UsuarioDAOIF, Serializable {
@@ -19,24 +20,20 @@ public class UsuarioDAO implements UsuarioDAOIF, Serializable {
 	
 	@Override
 	public void save(Usuario usuario) {
-		em.getTransaction().begin();
 		em.persist(usuario);
-		em.getTransaction().commit();
 	}
 
 	@Override
+	@Transacional
 	public void update(Usuario usuario) {
-		em.getTransaction().begin();
 		em.merge(usuario);
-		em.getTransaction().commit();
 	}
 
 	@Override
+	@Transacional
 	public void remove(Usuario usuario) {
 		Usuario u = em.find(Usuario.class, usuario.getId());
-		em.getTransaction().begin();
 		em.remove(u);
-		em.getTransaction().commit();
 	}
 
 	@Override

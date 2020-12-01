@@ -82,8 +82,14 @@ public class CadastrarMedicamentoBean implements Serializable {
 			medicamento = medicamentoDAO.findById(medicamentoId);
 		}
 		else {
-			tratamento = tratamentoDAO.findById(tratamentoId);
-			medicamento.setTratamento(tratamento);
+			if (tratamentoId != null) {				
+				tratamento = tratamentoDAO.findById(tratamentoId);
+				medicamento.setTratamento(tratamento);
+			}
+			else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, "É necessário ter um tratamento cadastrado!", ""));
+			}
 		}
 	}
 	
@@ -159,9 +165,7 @@ public class CadastrarMedicamentoBean implements Serializable {
 		}
 		else {
 			if (tratamentoId == null) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN, "É necessário ter um tratamento cadastrado para este medicamento!", ""));
-				return null;
+				return "cadastroTratamento.xhtml?faces-redirect=true";
 			}
 			else {				
 				medicamentoDAO.save(medicamento);
