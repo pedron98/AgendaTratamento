@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import com.github.pedron98.annotation.Transacional;
+import com.github.pedron98.enums.ErrorCode;
+import com.github.pedron98.exception.DAOException;
 import com.github.pedron98.model.Usuario;
 
 public class UsuarioDAO implements UsuarioDAOIF, Serializable {
@@ -20,52 +22,114 @@ public class UsuarioDAO implements UsuarioDAOIF, Serializable {
 	
 	@Override
 	public void save(Usuario usuario) {
-		em.persist(usuario);
+		try {			
+			em.persist(usuario);
+		}
+		catch(Exception ex) {
+			throw new DAOException("Erro ao tentar cadastrar o usuário no banco de dados: "+ex.getMessage(),
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
 	}
 
 	@Override
 	@Transacional
 	public void update(Usuario usuario) {
-		em.merge(usuario);
+		try {
+			Usuario u = em.find(Usuario.class, usuario.getId());
+			u.setNome(usuario.getNome());
+			u.setEmail(usuario.getNome());
+			em.merge(usuario);
+		}
+		catch(NullPointerException ex) {
+			throw new DAOException("O usuário informado não foi encontrado: "+ex.getMessage(),
+					ErrorCode.NOT_FOUND.getCode());
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Erro ao tentar atualizar o usuário no banco de dados: "+ex.getMessage(),
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
+		
 	}
 
 	@Override
 	@Transacional
 	public void remove(Usuario usuario) {
-		Usuario u = em.find(Usuario.class, usuario.getId());
-		em.remove(u);
+		try {
+			Usuario u = em.find(Usuario.class, usuario.getId());
+			em.remove(u);
+		}
+		catch(IllegalArgumentException ex) {
+			throw new DAOException("O usuário informado não foi encontrado: "+ex.getMessage(),
+					ErrorCode.NOT_FOUND.getCode());
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Erro ao tentar remover o usuário do banco do dados: "+ex.getMessage(),
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
+		
 	}
 
 	@Override
 	public List<Usuario> findAll() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		String jpql = "FROM Usuario"; 
-		TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-		usuarios = query.getResultList();
-		return usuarios;
+		try {
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			String jpql = "FROM Usuario"; 
+			TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+			usuarios = query.getResultList();
+			return usuarios;
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Erro ao tentar buscar todos os usuários do banco de dados: "+ex.getMessage(),
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
 	}
 
 	@Override
 	public Usuario findById(Long id) {
-		return em.find(Usuario.class, id);
+		Usuario u = null;
+		if (id <= 0) {
+			throw new DAOException("O id deve ser maior do que zero!", ErrorCode.BAD_REQUEST.getCode());
+		}
+		try {
+			u = em.find(Usuario.class, id);
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Erro ao tentar buscar o usuário no banco de dados: "+ex.getMessage(),
+					ErrorCode.BAD_REQUEST.getCode());
+		}
+		if(u == null) {
+			throw new DAOException("O usuário informado não foi encontrado!", ErrorCode.NOT_FOUND.getCode());
+		}
+		return u;
 	}
 
 	@Override
 	public Usuario findUsuarioFetchTratamentos(Long id) {
-		Usuario u = em.find(Usuario.class, id);
-		String jpql = "SELECT u FROM Usuario u LEFT JOIN FETCH u.tratamentos WHERE u.id = :id";
-		TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-		u = query.setParameter("id", id).getSingleResult();
-		return u;
+		if (id <= 0) {
+			throw new DAOException("O id deve ser maior do que zero!", ErrorCode.BAD_REQUEST.getCode());
+		}
+		try {
+			String jpql = "SELECT u FROM Usuario u LEFT JOIN FETCH u.tratamentos WHERE u.id = :id";
+			TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+			return query.setParameter("id", id).getSingleResult();
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Erro ao tentar buscar o usuário com carregamento de tratamentos do banco de dados: "+ex.getMessage(),
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
 	}
 
 	@Override
 	public Usuario findUsuarioByEmail(String email) {
-		Usuario u = new Usuario();
-		String jpql = "SELECT u FROM Usuario u WHERE u.email = :email";
-		TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-		u = query.setParameter("email", email).getSingleResult();
-		return u;
+		try {
+			String jpql = "SELECT u FROM Usuario u WHERE u.email = :email";
+			TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+			return query.setParameter("email", email).getSingleResult();
+		}
+		catch(RuntimeException ex) {
+			throw new DAOException("Nenhum usuário encontrado com este e-mail :S",
+					ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+		}
 	}
 
 }
