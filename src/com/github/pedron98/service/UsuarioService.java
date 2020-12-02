@@ -25,15 +25,4 @@ public class UsuarioService implements Serializable {
 			usuarioDAO.save(u);
 		}
 	}
-	
-	public Usuario findUsuarioByEmail(String email) throws ServiceException {
-		Usuario u = new Usuario();
-		try {
-			u = usuarioDAO.findUsuarioByEmail(email);
-		}
-		catch(Exception ex) {
-			throw new ServiceException("E-mail não cadastrado!");
-		}
-		return u;
-	}
 }
