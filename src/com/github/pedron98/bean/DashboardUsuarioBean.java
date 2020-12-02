@@ -42,7 +42,7 @@ public class DashboardUsuarioBean implements Serializable {
 				.getSessionMap().get("usuario");
 		
 		if (u == null) {
-			throw new SessionException("Erro ao tentar pegar um Usuário da sessão! Faça novamente o login.");
+			throw new SessionException("Erro ao tentar buscar o usuário da sessão! Faça o login novamente.");
 		}
 		else {			
 			usuario = usuarioDAO.findUsuarioFetchTratamentos(u.getId());

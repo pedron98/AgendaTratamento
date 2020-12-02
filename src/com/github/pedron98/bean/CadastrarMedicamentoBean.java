@@ -14,8 +14,10 @@ import javax.inject.Named;
 import com.github.pedron98.dao.MedicamentoDAO;
 import com.github.pedron98.dao.TratamentoDAO;
 import com.github.pedron98.enums.TipoMedicamento;
+import com.github.pedron98.exception.SessionException;
 import com.github.pedron98.model.Medicamento;
 import com.github.pedron98.model.Tratamento;
+import com.github.pedron98.model.Usuario;
 
 @Named
 @ViewScoped
@@ -78,6 +80,12 @@ public class CadastrarMedicamentoBean implements Serializable {
 	}
 	
 	public void pegarTratamento() {
+		Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+		
+		if (u == null) {
+			throw new SessionException("Erro ao tentar buscar o usuário da sessão! Faça o login novamente.");
+		}
+		
 		if (medicamentoId != null) {
 			medicamento = medicamentoDAO.findById(medicamentoId);
 		}

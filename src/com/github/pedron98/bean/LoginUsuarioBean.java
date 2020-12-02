@@ -8,9 +8,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.github.pedron98.exception.ServiceException;
+import com.github.pedron98.dao.UsuarioDAO;
 import com.github.pedron98.model.Usuario;
-import com.github.pedron98.service.UsuarioService;
 
 @Named
 @ViewScoped
@@ -21,7 +20,7 @@ public class LoginUsuarioBean implements Serializable {
 	@Inject
 	private Usuario usuario;
 	@Inject
-	private UsuarioService usuarioService;
+	private UsuarioDAO usuarioDAO;
 	
 	private String emailUsuario;
 	
@@ -39,11 +38,11 @@ public class LoginUsuarioBean implements Serializable {
 
 	public String login() {
 		try {
-			usuario = usuarioService.findUsuarioByEmail(emailUsuario);
+			usuario = usuarioDAO.findUsuarioByEmail(emailUsuario);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 			return "dashboardUsuario?faces-redirect=true";
 		}
-		catch(ServiceException ex) {
+		catch(Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), ""));
 			return null;

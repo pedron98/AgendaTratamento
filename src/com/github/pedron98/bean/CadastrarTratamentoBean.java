@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import com.github.pedron98.dao.TratamentoDAO;
 import com.github.pedron98.enums.TipoTratamento;
+import com.github.pedron98.exception.SessionException;
 import com.github.pedron98.model.Tratamento;
 import com.github.pedron98.model.Usuario;
 
@@ -36,9 +37,11 @@ public class CadastrarTratamentoBean implements Serializable {
 			Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext()
 					.getSessionMap().get("usuario");
 			
-			if (u != null) {				
-				tratamento.setUsuario(u);
-			}	
+			if (u == null) {				
+				throw new SessionException("Erro ao tentar buscar o usuário da sessão! Faça o login novamente.");
+			}
+			
+			tratamento.setUsuario(u);
 		}
 	}
 
